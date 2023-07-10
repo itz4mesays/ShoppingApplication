@@ -1,17 +1,77 @@
 <template>
   <div id="app">
+    
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-success position-relative">
+          Total Item(s) in your cart
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ cart.length }}
+            <span class="visually-hidden">Total Items</span>
+          </span>
+        </button>
+        </div>
+      </div>
+
+      <div class="row">
+        
+        <div class="col-md-9">
+           <div class="row">
+
+              <div class="col-md-4" v-for="item in products" :key="item.id">
+                  <product :product="item" v-on:add-to-cart="AddToCart(item)" :isItemInCart="isItemInCart(item)"></product>
+              </div>
+
+           </div>
+        </div>
+
+        <div class="col-md-3 my-5">
+          <cart :items="cart"></cart>
+        </div>
+
+      </div>
+    </div>
+
+    
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import Product from "@/components/ProductList.vue";
+import Cart from "@/components/CartList.vue"
+import products from "@/products.json";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Product,
+    Cart
+  },
+  data() {
+    return {
+      products,
+      cart: []
+    }
+  },
+  methods: {
+    AddToCart(item) {
+      this.cart.push(item)
+    },
+    isItemInCart(product) {
+      const item = this.cart.find(item => item.id === product.id)
+
+      if(item) {
+        return true
+      }
+
+      return false;
+    }
   }
 }
 </script>
