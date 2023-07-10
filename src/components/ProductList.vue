@@ -8,14 +8,14 @@
             
             <p class="text-center my-2">{{ product.description }}</p>
             
-            <p class="card-text text-muted display-5">${{ Number(product.price).toFixed(2) }}</p>
+            <p class="card-text text-muted display-5">${{ Number(product.price) }}</p>
 
             <p class="text-muted">Category: {{ product.category }}</p>
 
-            <button :disabled="isItemInCart" @click="$emit('add-to-cart', product)" class="btn btn-primary">
+            <button :disabled="isItemInCart" @click="$emit('add-to-cart', product)" class="btn btn-success">
                 {{ isItemInCart ? 'Added to Cart' : ' Add to Cart' }}
             </button>
-            
+
         </div>
     </div>
     

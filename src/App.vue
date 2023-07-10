@@ -3,7 +3,7 @@
     
     <img alt="Vue logo" src="./assets/logo.png">
 
-    <div class="container">
+    <div class="container-fluid">
 
       <div class="row">
         <div class="col-md-3">
@@ -30,7 +30,7 @@
         </div>
 
         <div class="col-md-3 my-5">
-          <cart :items="cart"></cart>
+          <cart :items="cart" v-on:pay="payNow()" v-on:delete-from-cart="deleteFromCart($event)"></cart>
         </div>
 
       </div>
@@ -71,6 +71,14 @@ export default {
       }
 
       return false;
+    },
+    deleteFromCart(product) {
+      this.cart = this.cart.filter(item => item.id !== product.id)
+    },
+    payNow() {
+      this.cart = []
+
+      alert('Shopping completed')
     }
   }
 }
